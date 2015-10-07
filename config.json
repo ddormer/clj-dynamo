@@ -1,0 +1,22 @@
+{
+    "irc": {
+        "hostname": "",
+        "port": 6667,
+        "channel": "#dynamo",
+        "nickname": "cljdynamo"
+    },
+    "web": {
+        "port": 8080
+    },
+    "bitly": {
+        "token": ""
+    },
+    "bitbucket": {
+        "username": "",
+        "password": ""
+    },
+    "trello": {
+        "key": "",
+        "callback-url": ""
+    }
+}
