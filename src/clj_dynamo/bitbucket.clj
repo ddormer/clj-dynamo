@@ -14,8 +14,11 @@
 
 (defn handle-response
   [{body :body} shorten-url]
-  (let [prs (get-in (json/parse-string body true) [:values])]
-    (map #(str (get-in % [:title]) " - " (shorten-url (get-in % [:links :html :href]))) prs)))
+  (let [parsed-body (json/parse-string body true)]
+    (if-not (nil? (:error parsed-body))
+      (get-in parsed-body [:error :message])
+      (map #(str (get-in % [:title]) " - " (shorten-url (get-in % [:links :html :href])))
+           (:values parsed-body)))))
 
 
 (defn open-pullrequests

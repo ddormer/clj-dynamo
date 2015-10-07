@@ -10,11 +10,9 @@
   (when (= command "PRIVMSG")
     (let [[said string] (clojure.string/split text #" " 2)]
       (when (.startsWith said "!")
-        (try
-            (let [message (call-plugin (.substring said 1) string)]
-              (when-not (nil? message)
-                (send-message message)))
-            (catch Exception e (send-message (.getMessage e))))))))
+        (let [message (call-plugin (.substring said 1) string)]
+          (when-not (nil? message)
+            (send-message message)))))))
 
 
 (defn send-irc-message
