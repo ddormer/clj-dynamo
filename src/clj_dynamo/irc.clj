@@ -10,9 +10,11 @@
   (when (= command "PRIVMSG")
     (let [[said string] (clojure.string/split text #" " 2)]
       (when (.startsWith said "!")
-        (let [message (call-plugin (.substring said 1) string)]
-          (when-not (nil? message)
-            (send-message message)))))))
+        (try
+            (let [message (call-plugin (.substring said 1) string)]
+              (when-not (nil? message)
+                (send-message message)))
+            (catch Exception e (send-message (.getMessage e))))))))
 
 
 (defn send-irc-message
@@ -42,12 +44,13 @@
     (let [event (<! channel)
           channel (:channel event)
           message (:message event)]
-      (if-not (nil? event)
-        (if (seq? message)
-                (doseq [m message]
-                    (send-irc-message irc-connection channel m))
+      (when-not (nil? event)
+        (do
+          (if (seq? message)
+            (doseq [m message]
+              (send-irc-message irc-connection channel m))
             (send-irc-message irc-connection channel message))
-        (recur)))))
+          (recur))))))
 
 
 (defn setup-irc
