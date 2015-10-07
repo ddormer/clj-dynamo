@@ -1,7 +1,6 @@
 (ns clj-dynamo.plugin
   (:require [clj-dynamo.shortener :refer [shorten-url]]
-            [clj-dynamo.bitbucket :refer [open-pullrequests]]
-            [clojure.algo.generic.functor :refer [fmap]]))
+            [clj-dynamo.bitbucket :refer [open-pullrequests]]))
 
 
 (defprotocol Plugin
