@@ -67,10 +67,10 @@
       (:help options) (exit 0 (usage summary))
       errors (exit 1 (error-msg errors)))
 
-    (let [config (getConfig (:config options))]
-      (def shorten-url-configured (partial shorten-url (get-in config [:bitly :token])))
-      (def bitbucket-options (:bitbucket config))
-      (def send-irc-message (irc/setup-irc shorten-url-configured config))
+    (let [config (getConfig (:config options))
+          shorten-url-configured (partial shorten-url (get-in config [:bitly :token]))
+          bitbucket-options (:bitbucket config)
+          send-irc-message (irc/setup-irc shorten-url-configured config)]
 
       (init-plugins shorten-url-configured bitbucket-options)
       {:web-server (run-jetty
