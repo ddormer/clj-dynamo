@@ -43,12 +43,9 @@
           channel (:channel event)
           message (:message event)]
       (when-not (nil? event)
-        (do
-          (if (seq? message)
-            (doseq [m message]
-              (send-irc-message irc-connection channel m))
-            (send-irc-message irc-connection channel message))
-          (recur))))))
+        (doseq [m (if (sequential? message) message [message])]
+          (send-irc-message irc-connection channel m)))
+      (recur))))
 
 
 (defn setup-irc
