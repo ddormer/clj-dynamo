@@ -48,6 +48,5 @@
 
 (defn init-plugins
   [shorten-url bitbucket-options]
-  (do
-    (register-plugin (BB-Open-Prs. "prs" shorten-url bitbucket-options)))
+    (register-plugin (BB-Open-Prs. "prs" shorten-url bitbucket-options))
     (register-plugin (->Echo "echo")))
