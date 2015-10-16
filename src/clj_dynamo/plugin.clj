@@ -25,7 +25,7 @@
 (defn validate-plugin
   "Verify each value in the map satisfies the Plugin interface."
   [state]
-  (every? true? (map (fn [[k v]] (satisfies? Plugin v)) state)))
+  (every? (partial satisfies? Plugin) (vals state)))
 
 
 (def registry (atom {} :validator validate-plugin))
