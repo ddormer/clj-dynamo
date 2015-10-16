@@ -33,8 +33,7 @@
 
 (defn register-plugin
   [plugin]
-  (when (satisfies? Plugin plugin)
-    (swap! registry assoc (keyword (:command plugin)) plugin)))
+  (swap! registry assoc (keyword (:command plugin)) plugin))
 
 
 (defn call-plugin
