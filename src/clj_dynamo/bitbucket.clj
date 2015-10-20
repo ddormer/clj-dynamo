@@ -60,6 +60,11 @@
   (issue-irc-message shorten-url data "New issue:"))
 
 
+(defmethod bitbucket-event "issue:updated"
+  [_ shorten-url data]
+  (issue-irc-message shorten-url data (format "Issue %s:" (get-in data [:changes :status :new]))))
+
+
 (defmethod bitbucket-event "pullrequest:created"
     [_ shorten-url data]
     (pullrequest-irc-message shorten-url data (fmt/color-text "Created" :lightGreen)))
