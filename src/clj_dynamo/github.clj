@@ -52,7 +52,10 @@
   [irc-message shorten-url config request]
   (let [body (body-string request)
         event (get-in request [:headers "x-github-event"])
-        signature (get-in request [:headers "x-hub-signature"])]
-    (when (verify-github-request body signature (:secret-key config))
-      (irc-message (github-event event shorten-url (json/parse-string body true))))
-    ""))
+        signature (get-in request [:headers "x-hub-signature"])
+        secret-key (:secret-key config)]
+    (if secret-key
+      (when (verify-github-request body signature secret-key)
+        (irc-message (github-event event shorten-url (json/parse-string body true))))
+      (irc-message (github-event event shorten-url (json/parse-string body true)))))
+  "")
