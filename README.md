@@ -1,13 +1,11 @@
 # clj-dynamo
 [![Build Status](https://travis-ci.org/ddormer/clj-dynamo.svg?branch=master)](https://travis-ci.org/ddormer/clj-dynamo)
 
-IRC bot that notifies an IRC channel of changes to one or more Bitbucket trepositories.
-- New issues
-- PR creation
-- PR declined
-- PR approved
-- PR unapproved
-- PR merged
+IRC bot that notifies an IRC channel of changes to both Bitbucket and Github repositories.
+
+Supported webhook events:
+- Issues.
+- Pull requests.
 
 ## Config
 This bot was written for a specific use case so you'll have to fill in all the config fields for the moment, even if they're not used. *(i.e Trello)*
