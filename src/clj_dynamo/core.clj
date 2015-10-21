@@ -11,6 +11,7 @@
             [irclj.events :as events]
             [clj-dynamo.trello :refer [trello-handler]]
             [clj-dynamo.bitbucket :refer [handle-bitbucket]]
+            [clj-dynamo.github :refer [handle-github]]
             [clj-dynamo.shortener :refer [shorten-url]]
             [clj-dynamo.irc :as irc]
             [clj-dynamo.plugin :refer [init-plugins]]))
@@ -34,7 +35,12 @@
    (POST "/bitbucket" [] (partial handle-bitbucket
                                   send-irc-message
                                   (partial shorten-url
-                                           (get-in config [:bitly :token]))))))
+                                           (get-in config [:bitly :token]))))
+   (POST "/github" [] (partial handle-github
+                               send-irc-message
+                               (partial shorten-url
+                                        (get-in config [:bitly :token]))
+                               (:github config)))))
 
 
 (def cli-options
