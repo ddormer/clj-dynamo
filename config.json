@@ -18,5 +18,8 @@
     "trello": {
         "key": "",
         "callback-url": ""
+    },
+    "github": {
+        "secret-key": ""
     }
 }
