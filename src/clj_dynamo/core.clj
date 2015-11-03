@@ -9,7 +9,6 @@
             [ring.middleware.params :refer :all]
             [irclj.core :as irclj]
             [irclj.events :as events]
-            [clj-dynamo.trello :refer [trello-handler]]
             [clj-dynamo.bitbucket :refer [handle-bitbucket]]
             [clj-dynamo.github :refer [handle-github]]
             [clj-dynamo.shortener :refer [shorten-url]]
@@ -25,13 +24,6 @@
 (defn dynamo-router
   [config send-irc-message]
   (routes
-   (HEAD "/trello" [] "")
-   (POST "/trello" [] (partial trello-handler
-                               send-irc-message
-                               (partial shorten-url
-                                        (get-in config [:bitly :token]))
-                               (get-in config [:trello :key])
-                               (get-in config [:trello :callback-url])))
    (POST "/bitbucket" [] (partial handle-bitbucket
                                   send-irc-message
                                   (partial shorten-url
